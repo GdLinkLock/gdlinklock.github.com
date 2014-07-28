@@ -1,15 +1,15 @@
 title:            Site Title
 description:      Describe your website.
 # Your site's domain goes here. Leave localhost server or blank when working locally.
-url:              http://localhost:4000
+url:               http://username.github.io
 disqus_shortname:
 
 # Owner/author information
 owner:
-  name:           Your Name
+  name:           LinkLock
   avatar:         bio-photo.jpg
-  bio:            "Describe your self."
-  email:          your@email.com
+  bio:            "LinkLock blog."
+  email:          gdlinklock@hotmail.com
   # Social networking links are used in author-bio sidebar. Update and remove as you like.
   twitter:
   facebook:
