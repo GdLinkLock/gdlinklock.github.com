@@ -1,5 +1,5 @@
-title:            Site Title
-description:      Describe your website.
+title:           Hello World
+description:      Hello World.
 # Your site's domain goes here. Leave localhost server or blank when working locally.
 url:              http://gdlinklock.github.io
 disqus_shortname:
@@ -15,14 +15,14 @@ owner:
   facebook:
   github:
   stackoverflow:
-  linkedin:
-  instagram:
-  lastfm:
-  tumblr:
-  pinterest:
-  foursquare:
-  steam:
-  dribbble:
+ # linkedin:
+ # instagram:
+ # lastfm:
+ # tumblr:
+ # pinterest:
+  #foursquare:
+  #steam:
+ # dribbble:
   # For Google Authorship https://plus.google.com/authorship
   google_plus:
 
