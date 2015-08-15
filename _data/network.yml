@@ -1,7 +1,6 @@
-- menu_name: "友情链接"
+- menu_name: "相关网站"
 
 - name: "GameCode"
   url: "http://www.mcshaffry.com/GameCode//"
-  class: "network-entypo"
   title: "GameCode"
 
