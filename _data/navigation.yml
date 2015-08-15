@@ -2,24 +2,9 @@
   url: "/"
   side: left
 
-- title: Getting Started
-  url: "/getting-started/"
-  side: left
-
-  url: "/documentation/"
-  side: left
-  dropdown:
-  - title: "Changelog"
-    url: "/changelog/"
-  - title: "Roadmap"
-    url: "/roadmap/"
-
 - title: Blog
   url: "/blog/"
   side: left
-  dropdown:
-  - title: "Blog Archive"
-    url: "/blog/archive/"
 
 - title: "Search"
   url: "/search/"
