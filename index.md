@@ -1,9 +1,11 @@
 ---
-layout: home
-description: "A responsive Jekyll theme with editorial tendencies by designer Michael Rose."
-tags: [Jekyll, theme, responsive, blog, template]
-image:
-  feature: texture-feature-01.jpg
-  credit: Texture Lovers
-  creditlink: http://texturelovers.com
+#
+# Use the widgets beneath and the content will be
+# inserted automagically in the webpage. To make
+# this work, you have to use › layout: frontpage
+#
+layout: frontpage
+title: "LinkLock' blog"
+header:
+    image_fullwidth: front02.jpg
 ---
