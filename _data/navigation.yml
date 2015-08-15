@@ -1,15 +1,19 @@
-- title: Start
+- title: <span class="icon-home"/>
   url: "/"
   side: left
 
-- title: Blog
-  url: "/blog/"
+- title: "RapidJSON"
+  url: "/rapidjson/"
   side: left
 
-- title: "Search"
-  url: "/search/"
-  side: right
+- title: "计算机图形学"
+  url: "/graphics/"
+  side: left
 
-- title: "Contact"
-  url: "/contact/"
+- title: "杂文"
+  url: "/misc/"
+  side: left
+
+- title: "简历"
+  url: "/cv/"
   side: right

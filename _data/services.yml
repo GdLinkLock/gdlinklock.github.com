@@ -1,5 +1,11 @@
-- menu_name: "·şÎñ"
+- menu_name: "æœåŠ¡"
 
 - name: "RSS"
   url: "/feed.xml"
-  title: "Subscribe to RSS Feed"
+  class: "rss-link"
+  title: "Subscribe to RSS"
+
+- name: "sitemap.xml"
+  url: "/sitemap.xml"
+  class: "sitemap-link"
+  title: "Sitemap for Google Webmastertools"
