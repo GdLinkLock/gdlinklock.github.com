@@ -1,7 +1,7 @@
 - menu_name: "Dankeschön"
 
-- name: "IGameCode"
-  url: "hhttp://www.mcshaffry.com/GameCode//"
+- name: "GameCode"
+  url: "http://www.mcshaffry.com/GameCode//"
   class: "network-entypo"
   title: "GameCode"
 
