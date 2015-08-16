@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: "豁然开朗"
 description: "静"
 tags: [情怀]
