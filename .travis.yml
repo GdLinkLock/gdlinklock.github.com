@@ -5,11 +5,11 @@ rvm:
 
 script: 
   - bundle exec jekyll build
-  - 'bundle exec htmlproof ./_site --href-ignore "#","#top-of-page","http://www.linkedin.com"'
+  - 'bundle exec htmlproof ./_site --href-ignore "#","#top-of-page","http://www.linkedin.com/in/miloyip"'
 
 branches:
   only:
-    - source
+    - gh-pages
 
 env:
   global:

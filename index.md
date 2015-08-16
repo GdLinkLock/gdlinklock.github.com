@@ -5,7 +5,7 @@
 # this work, you have to use › layout: frontpage
 #
 layout: frontpage
-title: "LinkLock' blog"
+title: "Milo的ex-Hippocampus"
 header:
     image_fullwidth: front02.jpg
 ---
