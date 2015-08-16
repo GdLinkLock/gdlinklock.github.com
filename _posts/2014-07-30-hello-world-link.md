@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title: "My First Post"
 description: "This is my first post,I will make it more better!"
 tags: [随笔]
