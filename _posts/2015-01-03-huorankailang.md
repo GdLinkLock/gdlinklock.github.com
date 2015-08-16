@@ -5,6 +5,8 @@ description: "静"
 tags: [情怀]
 link: http://gdlinklock.github.io
 share: true
+header:
+   image_fullwidth: "header_unsplash_library.jpg"
 ---
 #豁然开朗  
   * 丰子恺 

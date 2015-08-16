@@ -4,6 +4,8 @@ title: "safe bool的简单用法"
 date: 2015-08-09 00:04
 comments: true
 categories: 
+header:
+   image_fullwidth: "header_unsplash_library.jpg"
 ---
 
 <!-- more -->
