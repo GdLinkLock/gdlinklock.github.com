@@ -15,7 +15,7 @@ categories:
 > 原理：类型重载
 > 好处：编译期发现不合适的转型
 
-```
+~~~cpp
 class Test1
 {
 public:
@@ -74,4 +74,4 @@ int main()
 	}
 	return 0;
 }
-```
+~~~
