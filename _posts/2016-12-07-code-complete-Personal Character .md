@@ -7,6 +7,7 @@ categories: Books
 header:
    image_fullwidth: "header_unsplash_library.jpg"
 ---
+> know-understand-do
 
 # 软件开发中个人性格是否无关
 
