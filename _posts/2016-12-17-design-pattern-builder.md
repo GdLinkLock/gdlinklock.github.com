@@ -20,7 +20,6 @@ header:
 # 静态类图
 
 ![builder](/images/2016/20161217-design-pattern-builder.jpg)
-![mobike-vs-ofobike](/images/2016/20161129-mobikevsofobike.jpg)
 
 # 参与者
 
