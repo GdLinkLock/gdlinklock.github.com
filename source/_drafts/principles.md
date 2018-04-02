@@ -1,5 +1,0 @@
----
-title: principles
-date: 
-tags:
----
