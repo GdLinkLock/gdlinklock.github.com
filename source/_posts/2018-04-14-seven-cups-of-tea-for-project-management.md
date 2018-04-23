@@ -2,6 +2,7 @@
 title: 项目管理七杯茶
 date: 2018-04-14 14:38:41
 tags: 项目管理
+typora-root-url: 2018-04-14-seven-cups-of-tea-for-project-management
 ---
 
 # 项目管理七杯茶
@@ -153,7 +154,7 @@ tags: 项目管理
 
 #### 项目时间控制流程图
 
-![项目控制流程图](./2018-04-14-seven-cups-of-tea-for-project-management/1524401204388.png)
+![](/1524401204388.png)
 
 #### 到底该不该加班
 
@@ -172,7 +173,7 @@ Te=(To+4Tm+Tp)/6
 
 #### 加班的斜率
 
-![加班斜率](./2018-04-14-seven-cups-of-tea-for-project-management/1524401274955.png)
+![加班斜率](./1524401274955.png)
 
 ### 第五杯茶：人员茶
 
