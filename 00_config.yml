@@ -4,16 +4,16 @@
 
 # Site
 title: 观闻
-subtitle: ''
-description: ''
-keywords:
-author: linklock
-language: zh-CN
+subtitle:
+description:
+author: 
+language: zh-Hans
 timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://gdlinklock.github.com
+root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -40,7 +40,7 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:
@@ -99,17 +99,6 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: next
 
-sitemap:
-  path: sitemap.xml
-
-search:
-  path: search.xml
-  field: post
-  format: html
-  limit: '10000'
-
-# profile
-avatar: /uploads/avatar.png	
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
