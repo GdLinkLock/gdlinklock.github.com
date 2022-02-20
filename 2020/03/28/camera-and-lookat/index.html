@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gdlinklock.github.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="约定  右手坐标系 列向量   如何定位相机定位摄像机需要3个向量  相机位置 pos 观察位置 target 相机上向量 up   定义FPS相机Position、Target、Up、Pitch、Yaw 因为不需要翻滚，所以这里没有定义Roll 如何移动相机1vec3 Front&#x3D;Target-Position;	 	&#x2F;&#x2F;计算相机前进方向  相机前进和后退： 12Position +&#x3D; Fro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="camera-and-lookat">
+<meta property="og:url" content="http://gdlinklock.github.com/2020/03/28/camera-and-lookat/index.html">
+<meta property="og:site_name" content="观闻">
+<meta property="og:description" content="约定  右手坐标系 列向量   如何定位相机定位摄像机需要3个向量  相机位置 pos 观察位置 target 相机上向量 up   定义FPS相机Position、Target、Up、Pitch、Yaw 因为不需要翻滚，所以这里没有定义Roll 如何移动相机1vec3 Front&#x3D;Target-Position;	 	&#x2F;&#x2F;计算相机前进方向  相机前进和后退： 12Position +&#x3D; Fro">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://gdlinklock.github.com/1585404714096.png">
+<meta property="og:image" content="http://gdlinklock.github.com/1585456963733.png">
+<meta property="og:image" content="http://gdlinklock.github.com/1585443958345.png">
+<meta property="og:image" content="http://gdlinklock.github.com/1585444860584.png">
+<meta property="og:image" content="http://gdlinklock.github.com/1585405367107.png">
+<meta property="article:published_time" content="2020-03-28T03:14:07.000Z">
+<meta property="article:modified_time" content="2022-01-19T10:19:25.373Z">
+<meta property="article:author" content="linklock">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://gdlinklock.github.com/1585404714096.png">
+
+
+<link rel="canonical" href="http://gdlinklock.github.com/2020/03/28/camera-and-lookat/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://gdlinklock.github.com/2020/03/28/camera-and-lookat/","path":"2020/03/28/camera-and-lookat/","title":"camera-and-lookat"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>camera-and-lookat | 观闻</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">观闻</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9A%E4%BD%8D%E7%9B%B8%E6%9C%BA"><span class="nav-number">1.</span> <span class="nav-text">如何定位相机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89FPS%E7%9B%B8%E6%9C%BA"><span class="nav-number">2.</span> <span class="nav-text">定义FPS相机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%A7%BB%E5%8A%A8%E7%9B%B8%E6%9C%BA"><span class="nav-number">3.</span> <span class="nav-text">如何移动相机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%97%8B%E8%BD%AC%E7%9B%B8%E6%9C%BA"><span class="nav-number">4.</span> <span class="nav-text">如何旋转相机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E5%AF%BCLookAt"><span class="nav-number">5.</span> <span class="nav-text">推导LookAt</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">linklock</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://gdlinklock.github.com/2020/03/28/camera-and-lookat/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="linklock">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="观闻">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          camera-and-lookat
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-03-28 11:14:07" itemprop="dateCreated datePublished" datetime="2020-03-28T11:14:07+08:00">2020-03-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-19 18:19:25" itemprop="dateModified" datetime="2022-01-19T18:19:25+08:00">2022-01-19</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>约定</p>
+<ul>
+<li>右手坐标系</li>
+<li>列向量</li>
+</ul>
+</blockquote>
+<h3 id="如何定位相机"><a href="#如何定位相机" class="headerlink" title="如何定位相机"></a>如何定位相机</h3><p>定位摄像机需要3个向量</p>
+<ul>
+<li>相机位置 pos</li>
+<li>观察位置 target</li>
+<li>相机上向量 up</li>
+</ul>
+<p><img src="/1585404714096.png" alt="1585404714096"></p>
+<h3 id="定义FPS相机"><a href="#定义FPS相机" class="headerlink" title="定义FPS相机"></a>定义FPS相机</h3><p>Position、Target、Up、Pitch、Yaw</p>
+<p>因为不需要翻滚，所以这里没有定义Roll</p>
+<h3 id="如何移动相机"><a href="#如何移动相机" class="headerlink" title="如何移动相机"></a>如何移动相机</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vec3 Front=Target-Position;	 	<span class="comment">//计算相机前进方向</span></span><br></pre></td></tr></table></figure>
+
+<p>相机前进和后退：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Position += Front;			 <span class="comment">//相机前进</span></span><br><span class="line">Position -=	Front；			<span class="comment">//相机后退</span></span><br></pre></td></tr></table></figure>
+
+<p>相机左右移动：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vec Right = <span class="built_in">cross</span>(Front,<span class="built_in">v3c</span>(<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>));	 <span class="comment">//重新计算Right，因为Front会因为旋转而改变</span></span><br><span class="line">Position += Right;			<span class="comment">//相机右移</span></span><br><span class="line">Position -= Right；			<span class="comment">//相机左移</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="如何旋转相机"><a href="#如何旋转相机" class="headerlink" title="如何旋转相机"></a>如何旋转相机</h3><p><img src="/1585456963733.png" alt="1585456963733"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">front.y = sin(pitch);</span><br><span class="line">front.x = cos(pitch) * cos(yaw);</span><br><span class="line">front.z = cos(pitch) * sin(yaw);</span><br><span class="line">Front=normalize(front)</span><br><span class="line"></span><br><span class="line">mat4 view = lookat(Position,Position+Front,Up);</span><br></pre></td></tr></table></figure>
+
+<h3 id="推导LookAt"><a href="#推导LookAt" class="headerlink" title="推导LookAt"></a>推导LookAt</h3><p>首先，明确两个matrix</p>
+<ul>
+<li>camera transform matrix将camera当做世界中的一个物体来看，用于定位相机位置和朝向；记为 M<sub>tm </sub></li>
+<li>view matrix，用于将world space转换到view space，记为 M<sub>view</sub></li>
+</ul>
+<p>其中：</p>
+<p> M<sub>tm</sub>&#x3D;M<sub>T</sub> * M<sub>R</sub></p>
+<p>相机作为世界中的一个物体，在确认位置和朝向时；操作的顺序是先旋转再平移；因为我们使用的列向量，所以上述记法M<sub>R</sub>在右侧。也就是说，从右到左进行计算。</p>
+<p>下图(px,py,pz)表示相机位置，r1-r9表示3x3的旋转矩阵。</p>
+<p><img src="/1585443958345.png" alt="1585443958345"></p>
+<p>M<sub>view</sub>&#x3D;M<sub>tm</sub><sup>-1</sup>&#x3D;M<sub>R</sub><sup>-1</sup> * M<sub>T</sub><sup>-1</sup>&#x3D;M<sub>R</sub><sup>T</sup> * M<sub>T</sub><sup>-1</sup></p>
+<p>因为旋转矩阵是正交矩阵，正交矩阵的逆等于其转置，因此</p>
+<p>M<sub>view</sub>&#x3D;M<sub>R</sub><sup>T</sup> * M<sub>T</sub><sup>-1</sup></p>
+<p><img src="/1585444860584.png" alt="1585444860584"></p>
+<p><img src="/1585405367107.png" alt="1585405367107"></p>
+<p>下面我们计算right、up、forward三个向量。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vec3 worldup=(<span class="number">0.f</span>,<span class="number">1.f</span>,<span class="number">0.f</span>);</span><br><span class="line"></span><br><span class="line">vec3 forward = <span class="built_in">normalize</span>(pos-target);			<span class="comment">//zaxis,注意forward指向z正向</span></span><br><span class="line">vec3 right = <span class="built_in">normalize</span>(<span class="built_in">cross</span>(worldup,forward));		<span class="comment">//xaxis</span></span><br><span class="line">vec3 up = <span class="built_in">normalize</span>(<span class="built_in">cross</span>(forward,right));		<span class="comment">//yaxis</span></span><br></pre></td></tr></table></figure>
+
+<p>由上我们求得了3个正交基向量，代入上面的公式，可得到view matrix</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">|	right.x		right.y		right.z		-<span class="built_in">dot</span>(right,pos)		|</span><br><span class="line">|	up.x		up.y		up.z		-<span class="built_in">dot</span>(up,pos)		|</span><br><span class="line">|	forward.x	forward.y	forward.z	-<span class="built_in">dot</span>(forward,pos)	|</span><br><span class="line">|	<span class="number">0</span>		<span class="number">0</span>		<span class="number">0</span>		<span class="number">1</span>			|</span><br></pre></td></tr></table></figure>
+
+<p>实现LookAtRH</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">mat4 <span class="title">LookAtRH</span><span class="params">(vec3 position,vec3 target,vec3 wolrdup)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vec3 forward = <span class="built_in">normalize</span>(position-target);</span><br><span class="line">    vec3 right 	 = <span class="built_in">normalize</span>(<span class="built_in">cross</span>(<span class="built_in">nomalize</span>(worldup),forward));</span><br><span class="line">    vec3 up	 = <span class="built_in">normalize</span>(forward,right);</span><br><span class="line">    </span><br><span class="line">    <span class="function">mat4 <span class="title">view</span><span class="params">(<span class="number">1.0f</span>)</span></span>;</span><br><span class="line">    view[<span class="number">0</span>][<span class="number">0</span>] = right.x;	view[<span class="number">1</span>][<span class="number">0</span>] = right.y;	view[<span class="number">2</span>][<span class="number">0</span>] = right.z;	view[<span class="number">3</span>][<span class="number">0</span>] = -<span class="built_in">dot</span>(right, position);</span><br><span class="line">    view[<span class="number">0</span>][<span class="number">1</span>] = up.x;		view[<span class="number">1</span>][<span class="number">1</span>] = up.y;	view[<span class="number">2</span>][<span class="number">1</span>] = up.z;	view[<span class="number">3</span>][<span class="number">1</span>] = -<span class="built_in">dot</span>(up, position);</span><br><span class="line">    view[<span class="number">0</span>][<span class="number">2</span>] = forward.x;	view[<span class="number">1</span>][<span class="number">2</span>] = forward.y;	view[<span class="number">2</span>][<span class="number">2</span>] = forward.z;	view[<span class="number">3</span>][<span class="number">2</span>] = -<span class="built_in">dot</span>(forward, position);</span><br><span class="line">    view[<span class="number">0</span>][<span class="number">3</span>] = <span class="number">0</span>;		view[<span class="number">1</span>][<span class="number">3</span>] = <span class="number">0</span>;		view[<span class="number">2</span>][<span class="number">3</span>] = <span class="number">0</span>; 	view[<span class="number">3</span>][<span class="number">3</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> view;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/01/30/2019-nCov/" rel="prev" title="2019-nCov">
+                  <i class="fa fa-chevron-left"></i> 2019-nCov
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/04/01/AWE/" rel="next" title="敬畏之心">
+                  敬畏之心 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">linklock</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
