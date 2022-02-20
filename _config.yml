@@ -114,5 +114,5 @@ avatar: /uploads/avatar.png
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repository: https://github.com/GdLinkLock/gdlinklock.github.com
+  repository: git@github.com:GdLinkLock/gdlinklock.github.com.git
   branch: master
